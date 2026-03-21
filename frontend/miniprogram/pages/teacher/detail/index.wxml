@@ -1,0 +1,41 @@
+<view class="page">
+  <view class="card info-card" wx:if="{{submission}}">
+    <view class="info-header">
+      <text class="info-title">作答信息</text>
+      <text class="status {{submission.status === 'submitted' ? 'status-submitted' : 'status-graded'}}">{{submission.status === 'submitted' ? '待批改' : '已批改'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">作答 ID</text>
+      <text class="value">#{{submission.id}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">学生 ID</text>
+      <text class="value">{{submission.student_id}}</text>
+    </view>
+    
+    <text class="section-label">答卷图片 (点击全屏预览)</text>
+    <scroll-view scroll-x="true" class="image-list">
+      <image
+        wx:for="{{submission.answer_image_urls}}"
+        wx:key="*this"
+        class="img"
+        src="{{item}}"
+        mode="aspectFill"
+        bindtap="preview"
+        data-index="{{index}}"
+      />
+    </scroll-view>
+  </view>
+
+  <view class="card form-card">
+    <view class="form-group">
+      <text class="form-label">打分</text>
+      <input class="input-field" type="digit" placeholder="请输入分数" bindinput="onScoreInput" value="{{score}}" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">评语</text>
+      <textarea class="textarea-field" placeholder="请输入对该学生的评语..." bindinput="onCommentInput" value="{{teacherComment}}" />
+    </view>
+    <button class="btn-primary" bindtap="submitGrade">提交批改</button>
+  </view>
+</view>

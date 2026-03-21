@@ -1,0 +1,71 @@
+.page {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 24rpx;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx;
+}
+
+.delete-btn {
+  position: absolute;
+  top: -12rpx;
+  right: -12rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  z-index: 2;
+  box-shadow: 0 4rpx 8rpx rgba(239, 68, 68, 0.3);
+}
+
+.upload-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #f9fafb;
+  border: 2rpx dashed #d1d5db;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+.plus-icon {
+  font-size: 60rpx;
+  font-weight: 300;
+  margin-bottom: -10rpx;
+}
+
+.upload-text {
+  font-size: 24rpx;
+}

@@ -1,0 +1,58 @@
+.page {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.logo-card {
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+}
+
+.logo {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 0 auto 24rpx;
+  display: block;
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #0d1b4c;
+  margin-bottom: 16rpx;
+}
+
+.countdown {
+  display: inline-block;
+  background: rgba(13, 27, 76, 0.05);
+  color: #0d1b4c;
+  padding: 8rpx 24rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.content {
+  display: block;
+  line-height: 1.7;
+  font-size: 30rpx;
+  color: #4b5563;
+  margin-bottom: 20rpx;
+}
+
+.image-list {
+  margin-top: 24rpx;
+  white-space: nowrap;
+}
+
+.question-image {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 16rpx;
+  margin-right: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}

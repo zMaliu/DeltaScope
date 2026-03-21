@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/student/hall/index",
+    "pages/student/submit/index",
+    "pages/student/ranking/index",
+    "pages/teacher/list/index",
+    "pages/teacher/detail/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "观微元每周一题",
+    "navigationBarBackgroundColor": "#0d1b4c",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f6fa"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

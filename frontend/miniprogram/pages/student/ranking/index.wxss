@@ -1,0 +1,82 @@
+.page {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.header-card {
+  padding: 30rpx;
+  text-align: center;
+  background: linear-gradient(135deg, #0d1b4c, #1a3680);
+  border-radius: 24rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0 8rpx 16rpx rgba(13, 27, 76, 0.2);
+}
+
+.header-title {
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  gap: 24rpx;
+  margin-bottom: 0;
+}
+
+.rank-badge {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 28rpx;
+}
+
+.top-1 { background: #fffbeb; color: #f59e0b; border: 2rpx solid #fde68a; font-size: 36rpx; }
+.top-2 { background: #f3f4f6; color: #9ca3af; border: 2rpx solid #e5e7eb; font-size: 36rpx; }
+.top-3 { background: #fff7ed; color: #d97706; border: 2rpx solid #ffedd5; font-size: 36rpx; }
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.total-score {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.score-box {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+  color: #0d1b4c;
+}
+
+.score {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.score-unit {
+  font-size: 24rpx;
+  font-weight: normal;
+}

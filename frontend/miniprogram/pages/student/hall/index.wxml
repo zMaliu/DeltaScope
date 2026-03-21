@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="card logo-card">
+    <image class="logo" src="{{logoUrl}}" mode="aspectFit" wx:if="{{logoUrl}}" />
+    <text class="title">{{question ? question.title : "本周题目加载中"}}</text>
+    <text class="countdown">截止倒计时：{{countdownText}}</text>
+  </view>
+
+  <view class="card question-card" wx:if="{{question}}">
+    <text class="content">{{question.content}}</text>
+    <scroll-view scroll-x="true" class="image-list">
+      <image
+        wx:for="{{question.image_urls}}"
+        wx:key="*this"
+        class="question-image"
+        src="{{item}}"
+        mode="aspectFill"
+      />
+    </scroll-view>
+  </view>
+
+  <button class="btn-primary" bindtap="goSubmit" wx:if="{{question}}">去提交答案</button>
+</view>

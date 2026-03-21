@@ -1,0 +1,58 @@
+.page {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 30rpx;
+}
+
+.row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.tag {
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.tag-submitted {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.tag-graded {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.row-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submit-time {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.arrow {
+  color: #9ca3af;
+  font-weight: bold;
+}

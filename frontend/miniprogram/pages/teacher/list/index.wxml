@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="card row" wx:for="{{list}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
+    <view class="row-header">
+      <text class="student-name">学生ID：{{item.student_id}}</text>
+      <text class="tag {{item.status === 'submitted' ? 'tag-submitted' : 'tag-graded'}}">
+        {{item.status === 'submitted' ? '待批改' : '已批改'}}
+      </text>
+    </view>
+    <view class="row-body">
+      <text class="submit-time">提交时间：{{item.submit_time}}</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{list.length === 0}}">
+    <text>暂无学生提交</text>
+  </view>
+</view>
