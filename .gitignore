@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+env/
+.env/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Backend Specific
+backend/uploads/
+backend/.env
+backend/.pytest_cache/
+
+# Frontend (Miniprogram)
+frontend/miniprogram/node_modules/
+frontend/miniprogram/package-lock.json
+frontend/miniprogram/project.private.config.json
+
+# Trae/AI
+.trae/
+
+# OS
+.DS_Store
+Thumbs.db
