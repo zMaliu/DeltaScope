@@ -1,7 +1,6 @@
-import os
-
 from flask import Flask, send_from_directory
 
+from app.config import UPLOADS_DIR
 from app.routers.common_router import common_bp
 from app.routers.student_router import student_bp
 from app.routers.teacher_router import teacher_bp
@@ -15,7 +14,6 @@ def create_app() -> Flask:
 
     @app.get("/uploads/<path:filename>")
     def uploaded_file(filename: str):
-        uploads_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "uploads"))
-        return send_from_directory(uploads_dir, filename)
+        return send_from_directory(UPLOADS_DIR, filename)
 
     return app

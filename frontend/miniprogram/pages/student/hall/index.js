@@ -5,10 +5,17 @@ Page({
     question: null,
     countdownText: "--:--:--",
     timer: null,
-    logoUrl: ""
+    logoUrl: "",
+    app: getApp()
   },
   onLoad() {
     const app = getApp()
+    const key = app.globalData.config.STORAGE_KEYS.LOGIN_USER
+    const user = app.globalData.loginUser || wx.getStorageSync(key) || null
+    if (!user || user.role !== "student") {
+      wx.reLaunch({ url: "/pages/auth/login/index" })
+      return
+    }
     this.setData({
       logoUrl: app.globalData.logoUrl || ""
     })
@@ -19,11 +26,7 @@ Page({
   },
   async loadQuestion() {
     const res = await request({
-      url: "/api/student/question/current",
-      header: {
-        "X-User-Id": "10001",
-        "X-User-Role": "student"
-      }
+      url: "/api/student/question/current"
     })
     this.setData({ question: res.data || null })
     this.startTimer()
@@ -66,5 +69,23 @@ Page({
     run()
     const timer = setInterval(run, 1000)
     this.setData({ timer })
+  },
+  goRanking() {
+    wx.navigateTo({
+      url: "/pages/student/ranking/index"
+    })
+  },
+  goProfile() {
+    wx.navigateTo({
+      url: "/pages/user/info/index"
+    })
+  },
+  previewQuestion(e) {
+    const index = e.currentTarget.dataset.index
+    const urls = this.data.question.image_urls.map(url => this.data.app.globalData.baseUrl + url)
+    wx.previewImage({
+      current: urls[index],
+      urls
+    })
   }
 })

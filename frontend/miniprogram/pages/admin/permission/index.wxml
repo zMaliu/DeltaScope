@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="card">
+    <text class="title">教师权限管理</text>
+    <input class="input" placeholder="输入手机号/账号检索" value="{{keyword}}" bindinput="onKeywordInput" />
+    <button class="btn-primary" bindtap="searchUsers">查询账号</button>
+  </view>
+  <view class="card" wx:for="{{users}}" wx:key="id">
+    <view class="row">
+      <view>
+        <text class="name">{{item.nickname}}</text>
+        <text class="account">{{item.account}}</text>
+      </view>
+      <text class="role {{item.role === 'teacher' ? 'role-teacher' : 'role-student'}}">{{item.role}}</text>
+    </view>
+    <view class="actions">
+      <button class="action-btn grant" data-account="{{item.account}}" bindtap="grantTeacher">设为教师</button>
+      <button class="action-btn revoke" data-account="{{item.account}}" bindtap="revokeTeacher">移除教师</button>
+    </view>
+  </view>
+</view>

@@ -10,16 +10,20 @@ def get_top_users(limit: int = 50) -> List[Dict]:
         u.nickname,
         u.avatar_url,
         COALESCE(w.week_score, 0) AS week_score,
-        u.total_score
+        u.total_score,
+        w.question_id,
+        w.teacher_comment
     FROM users u
     LEFT JOIN (
-        SELECT s.student_id, SUM(s.score) AS week_score, MIN(s.submit_time) AS first_submit_time
+        SELECT s.student_id, SUM(s.score) AS week_score, MIN(s.submit_time) AS first_submit_time,
+               MAX(s.question_id) AS question_id, MAX(s.teacher_comment) AS teacher_comment
         FROM submissions s
         JOIN questions q ON q.id = s.question_id
         WHERE s.status = 'graded'
           AND YEARWEEK(q.deadline, 1) = YEARWEEK(NOW(), 1)
         GROUP BY s.student_id
     ) w ON w.student_id = u.id
+    WHERE u.role = 'student'
     ORDER BY w.week_score DESC, w.first_submit_time ASC, u.id ASC
     LIMIT %s
     """

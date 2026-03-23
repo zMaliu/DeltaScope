@@ -1,20 +1,12 @@
-import os
 from contextlib import contextmanager
 
 import pymysql
 
+from app.config import DB_CONFIG
+
 
 def _db_config() -> dict:
-    return {
-        "host": os.getenv("DB_HOST", "127.0.0.1"),
-        "port": int(os.getenv("DB_PORT", "3306")),
-        "user": os.getenv("DB_USER", "root"),
-        "password": os.getenv("DB_PASSWORD", ""),
-        "database": os.getenv("DB_NAME", "guanweiyuan"),
-        "charset": "utf8mb4",
-        "cursorclass": pymysql.cursors.DictCursor,
-        "autocommit": False,
-    }
+    return {**DB_CONFIG, "cursorclass": pymysql.cursors.DictCursor}
 
 
 def get_connection():

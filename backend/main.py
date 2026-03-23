@@ -1,15 +1,11 @@
-import os
-
 from app import create_app
+from app.config import FLASK_DEBUG, FLASK_HOST, FLASK_PORT
 
 app = create_app()
 
 
 def main():
-    host = os.getenv("FLASK_RUN_HOST", "0.0.0.0")
-    port = int(os.getenv("FLASK_RUN_PORT", "5000"))
-    debug = os.getenv("FLASK_DEBUG", "1") == "1"
-    app.run(host=host, port=port, debug=debug)
+    app.run(host=FLASK_HOST, port=FLASK_PORT, debug=FLASK_DEBUG)
 
 
 if __name__ == "__main__":

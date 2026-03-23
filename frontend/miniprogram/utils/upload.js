@@ -35,10 +35,13 @@ function uploadImage(filePath, uploadUrl) {
       url: uploadUrl,
       filePath,
       name: "file",
+      header: {
+        "Content-Type": "multipart/form-data"
+      },
       success: (res) => {
         try {
           const data = JSON.parse(res.data || "{}")
-          if (data.url) {
+          if (data.code === 0 && data.url) {
             resolve(data.url)
             return
           }
@@ -57,7 +60,14 @@ async function uploadImages(filePaths, uploadUrl) {
   return Promise.all(tasks)
 }
 
+function uploadFile(filePath) {
+  const app = getApp()
+  const uploadUrl = `${app.globalData.baseUrl}/api/common/upload`
+  return uploadImage(filePath, uploadUrl).then(url => ({ url }))
+}
+
 module.exports = {
   chooseAndCompressImages,
-  uploadImages
+  uploadImages,
+  uploadFile
 }

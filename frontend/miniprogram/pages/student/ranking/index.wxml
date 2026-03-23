@@ -3,7 +3,7 @@
     <text class="header-title">🏆 本周积分排行榜</text>
   </view>
   
-  <view class="card item rank-{{index + 1}}" wx:for="{{list}}" wx:key="user_id">
+  <view class="card item rank-{{index + 1}}" wx:for="{{list}}" wx:key="user_id" bindtap="viewFeedback" data-question-id="{{item.question_id}}">
     <view class="rank-badge {{index < 3 ? 'top-' + (index + 1) : ''}}">
       <text wx:if="{{index > 2}}">{{index + 1}}</text>
       <text wx:if="{{index === 0}}">👑</text>
@@ -17,6 +17,9 @@
     <view class="score-box">
       <text class="score">{{item.week_score}}</text>
       <text class="score-unit">分</text>
+    </view>
+    <view class="arrow" wx:if="{{item.question_id && item.user_id === currentUserId}}">
+      <text class="view-feedback">查看评语 ></text>
     </view>
   </view>
   

@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="hero">
+    <text class="brand">创建账号</text>
+    <text class="subtitle">仅需手机号和密码，资料稍后补全</text>
+  </view>
+  <view class="card auth-card">
+    <view class="tabs">
+      <view class="tab {{role === 'student' ? 'active' : ''}}" bindtap="switchRole" data-role="student">学生注册</view>
+      <view class="tab {{role === 'teacher' ? 'active' : ''}}" bindtap="switchRole" data-role="teacher">老师注册</view>
+    </view>
+    
+    <input class="input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+    <input class="input" password placeholder="请输入密码（6位以上）" value="{{password}}" bindinput="onPasswordInput" />
+    
+    <block wx:if="{{role === 'teacher'}}">
+      <input class="input auth-input" placeholder="请输入教研授权码" value="{{authCode}}" bindinput="onAuthCodeInput" />
+    </block>
+    
+    <button class="btn-primary" bindtap="handleRegister" loading="{{loading}}">注册</button>
+    <view class="switch-line" bindtap="goLogin">已有账号？去登录</view>
+  </view>
+</view>

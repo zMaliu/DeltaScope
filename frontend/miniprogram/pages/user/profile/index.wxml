@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="card profile-card">
+    <text class="title">完善个人资料</text>
+    <text class="desc">注册后请先补充以下信息</text>
+    
+    <input class="input" placeholder="请输入真实姓名 (必填)" value="{{realName}}" bindinput="onRealNameInput" />
+    <input class="input" placeholder="请输入学院 (必填)" value="{{college}}" bindinput="onCollegeInput" />
+    
+    <block wx:if="{{role === 'student'}}">
+      <input class="input" placeholder="请输入专业 (必填)" value="{{major}}" bindinput="onMajorInput" />
+      <input class="input" placeholder="请输入学校 (选填)" value="{{school}}" bindinput="onSchoolInput" />
+      <input class="input" placeholder="请输入年级, 如 2023级 (选填)" value="{{grade}}" bindinput="onGradeInput" />
+      <input class="input" placeholder="请输入班级 (选填)" value="{{className}}" bindinput="onClassNameInput" />
+      <input class="input" placeholder="请输入昵称 (选填, 默认使用姓名)" value="{{nickname}}" bindinput="onNicknameInput" />
+      <input class="input" placeholder="请输入头像URL (选填)" value="{{avatarUrl}}" bindinput="onAvatarInput" />
+    </block>
+
+    <button class="btn-primary" bindtap="saveProfile">保存并进入系统</button>
+  </view>
+</view>

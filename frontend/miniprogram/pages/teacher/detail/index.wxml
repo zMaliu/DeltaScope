@@ -19,7 +19,7 @@
         wx:for="{{submission.answer_image_urls}}"
         wx:key="*this"
         class="img"
-        src="{{item}}"
+        src="{{app.globalData.baseUrl + item}}"
         mode="aspectFill"
         bindtap="preview"
         data-index="{{index}}"

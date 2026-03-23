@@ -1,0 +1,33 @@
+.page {
+  min-height: 100vh;
+  padding: 36rpx 30rpx;
+  background: linear-gradient(180deg, #eff3ff 0%, #f9fbff 40%, #f5f6fa 100%);
+}
+
+.profile-card {
+  margin-top: 80rpx;
+  border-radius: 28rpx;
+}
+
+.title {
+  display: block;
+  font-size: 42rpx;
+  font-weight: 700;
+  color: #0d1b4c;
+}
+
+.desc {
+  display: block;
+  margin-top: 14rpx;
+  margin-bottom: 28rpx;
+  color: #667085;
+  font-size: 26rpx;
+}
+
+.input {
+  border: 2rpx solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 22rpx;
+}

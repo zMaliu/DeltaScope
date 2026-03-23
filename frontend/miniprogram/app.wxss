@@ -1,5 +1,5 @@
 page {
-  background: #f4f6f9;
+  background: #f5f6fa;
   color: #333333;
   font-size: 28rpx;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
@@ -7,20 +7,20 @@ page {
 
 .card {
   background: #ffffff;
-  border-radius: 24rpx;
+  border-radius: 20rpx;
   padding: 32rpx;
-  box-shadow: 0 8rpx 24rpx rgba(13, 27, 76, 0.05);
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05);
   margin-bottom: 24rpx;
   transition: all 0.3s ease;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0d1b4c, #1a3680);
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6);
   color: #ffffff;
   border-radius: 48rpx;
   font-weight: 600;
   font-size: 32rpx;
-  box-shadow: 0 8rpx 16rpx rgba(13, 27, 76, 0.2);
+  box-shadow: 0 8rpx 20rpx rgba(59, 130, 246, 0.3);
   border: none;
   display: flex;
   align-items: center;

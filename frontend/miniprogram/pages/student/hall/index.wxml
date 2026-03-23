@@ -1,22 +1,34 @@
 <view class="page">
-  <view class="card logo-card">
-    <image class="logo" src="{{logoUrl}}" mode="aspectFit" wx:if="{{logoUrl}}" />
-    <text class="title">{{question ? question.title : "本周题目加载中"}}</text>
-    <text class="countdown">截止倒计时：{{countdownText}}</text>
+  <view class="header">
+    <text class="greeting">你好，{{nickname}}</text>
+    <view class="header-actions">
+      <text class="rank-btn" bindtap="goRanking">🏆 排行榜</text>
+      <text class="profile-btn" bindtap="goProfile">👤 个人中心</text>
+    </view>
   </view>
-
-  <view class="card question-card" wx:if="{{question}}">
-    <text class="content">{{question.content}}</text>
-    <scroll-view scroll-x="true" class="image-list">
+  
+  <view class="card task-card" wx:if="{{question}}">
+    <text class="task-title">{{question.title}}</text>
+    <text class="task-desc">满分: {{question.max_score}} | 截止: {{question.deadline}}</text>
+    
+    <scroll-view scroll-x="true" class="image-list" wx:if="{{question.image_urls && question.image_urls.length > 0}}">
       <image
         wx:for="{{question.image_urls}}"
         wx:key="*this"
-        class="question-image"
-        src="{{item}}"
+        class="img"
+        src="{{app.globalData.baseUrl + item}}"
         mode="aspectFill"
+        bindtap="previewQuestion"
+        data-index="{{index}}"
       />
     </scroll-view>
+
+    <button class="btn-primary" bindtap="goSubmit" disabled="{{status === 'submitted' || status === 'graded'}}">
+      {{status === 'submitted' ? '已交卷 (待批改)' : (status === 'graded' ? '已批改' : '立即交卷')}}
+    </button>
   </view>
 
-  <button class="btn-primary" bindtap="goSubmit" wx:if="{{question}}">去提交答案</button>
+  <view class="empty-state" wx:if="{{!question}}">
+    <text>本周暂无题目，休息一下吧~</text>
+  </view>
 </view>

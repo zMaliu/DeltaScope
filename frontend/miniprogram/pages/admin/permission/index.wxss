@@ -1,0 +1,79 @@
+.page {
+  min-height: 100vh;
+  padding: 30rpx;
+  background: linear-gradient(180deg, #f0f3ff 0%, #f6f8fc 40%, #f5f6fa 100%);
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #0d1b4c;
+  margin-bottom: 24rpx;
+}
+
+.input {
+  border: 2rpx solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 14rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  display: block;
+  font-size: 32rpx;
+  color: #111827;
+  font-weight: 600;
+}
+
+.account {
+  display: block;
+  margin-top: 8rpx;
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.role {
+  padding: 8rpx 16rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+}
+
+.role-teacher {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.role-student {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.actions {
+  margin-top: 20rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+}
+
+.grant {
+  background: #e0ecff;
+  color: #1d4ed8;
+}
+
+.revoke {
+  background: #ffe4e6;
+  color: #be123c;
+}

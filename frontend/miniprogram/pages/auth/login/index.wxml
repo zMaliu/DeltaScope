@@ -1,0 +1,18 @@
+<view class="page">
+  <view class="hero">
+    <text class="brand">欢迎来到观微元</text>
+    <text class="subtitle">观察 · 推导 · 见证成长</text>
+  </view>
+  <view class="card auth-card">
+    <view class="tabs">
+      <view class="tab {{role === 'student' ? 'active' : ''}}" bindtap="switchRole" data-role="student">学生登录</view>
+      <view class="tab {{role === 'teacher' ? 'active' : ''}}" bindtap="switchRole" data-role="teacher">老师登录</view>
+    </view>
+    
+    <input class="input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+    <input class="input" password placeholder="请输入密码" value="{{password}}" bindinput="onPasswordInput" />
+    
+    <button class="btn-primary" bindtap="handleLogin">登录</button>
+    <view class="switch-line" bindtap="goRegister">没有账号？去注册</view>
+  </view>
+</view>

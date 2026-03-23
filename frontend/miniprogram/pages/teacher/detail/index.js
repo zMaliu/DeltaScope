@@ -5,9 +5,17 @@ Page({
     submissionId: 0,
     submission: null,
     score: "",
-    teacherComment: ""
+    teacherComment: "",
+    app: getApp()
   },
   onLoad(options) {
+    const app = getApp()
+    const key = app.globalData.config.STORAGE_KEYS.LOGIN_USER
+    const user = app.globalData.loginUser || wx.getStorageSync(key) || null
+    if (!user || user.role !== "teacher") {
+      wx.reLaunch({ url: "/pages/auth/login/index" })
+      return
+    }
     this.setData({
       submissionId: Number(options.submissionId || 0)
     })
@@ -15,17 +23,18 @@ Page({
   },
   async loadSubmission() {
     const res = await request({
-      url: `/api/teacher/submission/detail?submission_id=${this.data.submissionId}`,
-      header: {
-        "X-User-Id": "90001",
-        "X-User-Role": "teacher"
-      }
+      url: `/api/teacher/submission/detail?submission_id=${this.data.submissionId}`
     })
-    this.setData({ submission: res.data || null })
+    this.setData({
+      submission: res.data || null,
+      score: res.data ? (res.data.score || "") : "",
+      teacherComment: res.data ? (res.data.teacher_comment || "") : ""
+    })
   },
   preview(e) {
     const index = Number(e.currentTarget.dataset.index)
-    const urls = (this.data.submission && this.data.submission.answer_image_urls) || []
+    const rawUrls = (this.data.submission && this.data.submission.answer_image_urls) || []
+    const urls = rawUrls.map(url => this.data.app.globalData.baseUrl + url)
     wx.previewImage({
       current: urls[index],
       urls
@@ -44,10 +53,6 @@ Page({
     await request({
       url: "/api/teacher/submission/grade",
       method: "POST",
-      header: {
-        "X-User-Id": "90001",
-        "X-User-Role": "teacher"
-      },
       data: {
         submission_id: this.data.submission.id,
         score: Number(this.data.score),
