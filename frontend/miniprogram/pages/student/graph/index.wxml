@@ -1,0 +1,8 @@
+<view class="page-shell">
+  <view class="screen-head"><view><text class="screen-eyebrow">KNOWLEDGE MAP</text><text class="screen-title">知识地图</text><text class="screen-copy">从一个概念出发，慢慢连接整个世界。</text></view></view>
+  <image class="preview-art" src="/assets/covers/orbit.png" mode="aspectFill" />
+  <view class="plan-notice"><text class="pill">内容筹备中</text><text class="plan-copy">这里将整理课程之间的知识联系。目前可查看目录，节点练习尚未开放。</text></view>
+  <view wx:if="{{loading}}" class="loading-state">正在整理知识目录…</view>
+  <view wx:elif="{{loadError}}" class="error-card"><text>{{loadError}}</text><button class="quiet-button" bindtap="loadGraph">重新加载</button></view>
+  <view wx:else class="catalog"><view class="catalog-row" wx:for="{{nodes}}" wx:key="name"><text class="catalog-index">0{{index + 1}}</text><view><text class="catalog-title">{{item.name}}</text><text class="catalog-copy">节点练习筹备中</text></view></view><view wx:if="{{!nodes.length}}" class="empty-state">知识目录正在整理，先从每周一题开始吧。</view></view>
+</view>

@@ -1,0 +1,8 @@
+<view class="app-nav">
+  <view class="nav-bar">
+    <view wx:for="{{items}}" wx:key="key" class="nav-item {{active === item.key ? 'is-active' : ''}} {{item.key === 'publish' ? 'is-publish' : ''}}" bindtap="go" data-key="{{item.key}}" role="button" aria-label="{{item.label}}">
+      <view class="nav-icon icon-{{item.icon}}"><view class="icon-detail"></view></view>
+      <text class="nav-label">{{item.label}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+<view class="page-shell with-nav learning-page">
+  <view class="learning-header"><text class="learning-title">我的学习</text><text class="learning-sub">慢一点也没关系，思考一直在发生。</text></view>
+  <view class="learning-summary"><view class="summary-heading"><text>每一步，都有回响</text><text class="summary-decor">✦</text></view><view class="summary-stats"><view wx:for="{{stats}}" wx:key="label"><text class="stat-value">{{item.value}}</text><text class="stat-label">{{item.label}}</text></view></view><text class="summary-foot">来自你的真实作答、批改和社区记录</text></view>
+  <view class="learning-entry" bindtap="goWeekly" role="button"><view class="entry-icon">∑</view><view class="entry-copy"><text class="entry-title">每周一题</text><text class="entry-desc">用一道好题，打开新的思路</text></view><text class="entry-arrow">›</text></view>
+  <view class="learning-entry" bindtap="goResources" role="button"><view class="entry-icon lavender">▤</view><view class="entry-copy"><text class="entry-title">课程资料库</text><text class="entry-desc">章节笔记 · 题目解析 · 备考专题</text></view><text class="entry-arrow">›</text></view>
+  <view class="section-heading"><text class="section-title">学习记录</text><text class="section-more">持续积累，慢慢生长</text></view>
+  <view wx:if="{{loading}}" class="loading-state">正在整理你的学习记录…</view>
+  <view wx:elif="{{loadError}}" class="error-card"><text>{{loadError}}</text><button class="quiet-button" bindtap="loadDashboard">重新加载</button></view>
+  <view wx:else class="record-card"><view wx:for="{{dimensions}}" wx:key="label" class="record-row"><view class="record-top"><text>{{item.label}}</text><text class="record-value">{{item.value}}</text></view><view class="record-track"><view class="record-fill" style="width: {{item.percent}}%;"></view></view></view></view>
+  <view class="section-heading"><text class="section-title">探索实验室</text><text class="section-more">让数学变得可见</text></view>
+  <view class="lab-grid"><view class="lab-tile" bindtap="goGraph" role="button"><image src="/assets/covers/orbit.png" class="lab-art" mode="aspectFill" /><text class="lab-symbol">∞</text><text class="lab-name">知识地图</text><text class="lab-caption">找到知识之间的连接 ›</text></view><view class="lab-tile" bindtap="goVisual" role="button"><image src="/assets/covers/waves.png" class="lab-art" mode="aspectFill" /><text class="lab-state">预告</text><text class="lab-symbol">∿</text><text class="lab-name">可视化实验室</text><text class="lab-caption">用图形理解抽象概念 ›</text></view></view>
+  <view class="ai-entry" bindtap="goVeritas" role="button"><view class="ai-icon">✦</view><view class="entry-copy"><text class="entry-title">Veritas · 数学思考伙伴</text><text class="entry-desc">了解证明辅导与逻辑验证计划</text></view><text class="ai-badge">筹备中</text></view>
+</view>

@@ -1,0 +1,11 @@
+<template name="feed-column">
+  <view class="waterfall-column">
+    <view wx:for="{{items}}" wx:key="id" class="note-card" bindtap="openCard" data-id="{{item.id}}" role="button" aria-label="{{item.title}}">
+      <view class="note-cover {{item.tall ? 'tall' : ''}}"><image class="note-art" src="{{item.cover}}" mode="aspectFill" /><text class="note-cover-label">{{item.label}}</text><text class="note-cover-title">{{item.coverTitle}}</text></view>
+      <view class="note-body"><text class="note-title">{{item.title}}</text><view class="note-foot"><view class="note-author"><text class="mini-avatar">{{item.avatar}}</text><text class="note-author-name">{{item.author}}</text></view><text class="note-meta">{{item.meta}}</text></view></view>
+    </view>
+  </view>
+</template>
+<template name="feed">
+  <view class="waterfall"><template is="feed-column" data="{{items: columns[0]}}" /><template is="feed-column" data="{{items: columns[1]}}" /></view>
+</template>

@@ -2,45 +2,44 @@ const { request } = require("../../../utils/api")
 
 Page({
   data: {
-    role: "student", // 'student' or 'teacher'
+    logoUrl: require("../../../config/index").LOGO_URL,
     phone: "",
     password: "",
-    loading: false
+    loading: false,
+    error: '',
+    showPassword: false
   },
-  
   onLoad() {
-    // 页面加载
+    const app = getApp()
+    if (app.globalData.loginUser && app.globalData.authToken) {
+      wx.reLaunch({ url: app.globalData.loginUser.role === 'admin' ? '/pages/admin/permission/index' : '/pages/user/profile/index' })
+    }
   },
-
-  switchRole(e) {
-    const role = e.currentTarget.dataset.role
-    this.setData({ role })
-  },
-
   onPhoneInput(e) {
-    this.setData({ phone: e.detail.value })
+    this.setData({ phone: e.detail.value, error: '' })
   },
 
   onPasswordInput(e) {
-    this.setData({ password: e.detail.value })
+    this.setData({ password: e.detail.value, error: '' })
   },
+  togglePassword() { this.setData({ showPassword: !this.data.showPassword }) },
 
   goRegister() {
     wx.navigateTo({
-      url: `/pages/auth/register/index?role=${this.data.role}`
+      url: "/pages/auth/register/index"
     })
   },
 
   async handleLogin() {
     if (this.data.loading) return
-    const { phone, password, role } = this.data
+    const { phone, password } = this.data
     
-    if (!phone || phone.length !== 11) {
-      wx.showToast({ title: "请输入11位手机号", icon: "none" })
+    if (!/^\d{11}$/.test(phone)) {
+      this.setData({ error: '请输入 11 位手机号' })
       return
     }
     if (!password) {
-      wx.showToast({ title: "请输入密码", icon: "none" })
+      this.setData({ error: '请输入登录密码' })
       return
     }
 
@@ -51,14 +50,13 @@ Page({
         method: "POST",
         data: {
           phone,
-          password,
-          role
+          password
         }
       })
       this.applyAuthData(res.data)
-      wx.reLaunch({ url: "/pages/user/profile/index" })
+      wx.reLaunch({ url: res.data.role === "admin" ? "/pages/admin/permission/index" : "/pages/user/profile/index" })
     } catch (error) {
-      wx.showToast({ title: error.message || "登录失败", icon: "none" })
+      this.setData({ error: error.message || '暂时无法登录，请检查网络后重试' })
     } finally {
       this.setData({ loading: false })
     }

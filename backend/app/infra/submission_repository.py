@@ -68,6 +68,24 @@ def get_submissions_by_question(question_id: int, status: Optional[str] = None) 
     return rows
 
 
+def get_submissions_by_student(student_id: int) -> List[Dict]:
+    sql = """
+    SELECT s.id, s.question_id, s.student_id, s.answer_image_urls, s.submit_time,
+           s.score, s.teacher_comment, s.status, q.title AS question_title
+    FROM submissions s
+    JOIN questions q ON q.id = s.question_id
+    WHERE s.student_id = %s
+    ORDER BY s.submit_time DESC, s.id DESC
+    """
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (student_id,))
+            rows = cursor.fetchall()
+    for row in rows:
+        row["answer_image_urls"] = json.loads(row["answer_image_urls"] or "[]")
+    return rows
+
+
 def get_submission_with_question(submission_id: int) -> Optional[Dict]:
     sql = """
     SELECT s.id, s.student_id, s.question_id, s.score, s.status, q.max_score

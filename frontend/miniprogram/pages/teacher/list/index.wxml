@@ -1,28 +1,50 @@
-<view class="page">
-  <view class="header">
-    <text class="greeting">老师工作台</text>
-    <view class="header-actions">
-      <text class="profile-btn" bindtap="goProfile">👤 个人中心</text>
+<view class="page-shell with-nav">
+  <view class="teacher-hero">
+    <view>
+      <text class="eyebrow">Teacher Console</text>
+      <text class="hero-title">老师工作台</text>
+      <text class="hero-copy">围绕每周一题完成发布、收卷、批改和学习反馈沉淀。</text>
+    </view>
+    <view class="profile-orb" bindtap="goProfile">我</view>
+  </view>
+
+  <view class="teacher-actions">
+    <view class="action-card primary" bindtap="goPublish">
+      <text class="action-title">发布本周新题</text>
+      <text class="action-desc">上传题目图片、设置满分与截止时间</text>
+    </view>
+    <view class="action-card">
+      <text class="action-title">{{list.length}}</text>
+      <text class="action-desc">待批改提交</text>
     </view>
   </view>
 
-  <view class="actions-bar">
-    <button class="btn-publish" bindtap="goPublish">发布本周新题</button>
+  <view class="section-heading">
+    <text class="section-title">待批改答卷</text>
+    <text class="section-more">按提交时间排序</text>
   </view>
-  
-  <view class="card row" wx:for="{{list}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
-    <view class="row-header">
-      <text class="student-name">学生ID：{{item.student_id}}</text>
+
+  <view class="submission-card" wx:for="{{list}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
+    <view class="submission-top">
+      <view>
+        <text class="student-name">学生 #{{item.student_id}}</text>
+        <text class="submit-time">提交时间：{{item.submit_time}}</text>
+      </view>
       <text class="tag {{item.status === 'submitted' ? 'tag-submitted' : 'tag-graded'}}">
         {{item.status === 'submitted' ? '待批改' : '已批改'}}
       </text>
     </view>
-    <view class="row-body">
-      <text class="submit-time">提交时间：{{item.submit_time}}</text>
-      <text class="arrow">></text>
+    <view class="submission-foot">
+      <text>查看答卷图片与评分</text>
+      <text>→</text>
     </view>
   </view>
-  <view class="empty-state" wx:if="{{list.length === 0}}">
-    <text>暂无学生提交</text>
+
+  <view class="loading-state" wx:if="{{loading}}">正在整理待批改答卷…</view>
+  <view class="error-card" wx:elif="{{loadError}}"><text>{{loadError}}</text><button class="quiet-button" bindtap="loadData">重新加载</button></view>
+  <view class="empty-panel" wx:elif="{{list.length === 0}}">
+    <text class="empty-title">暂无学生提交</text>
+    <text class="empty-copy">可以先发布本周题目，或等待学生提交后再进行批改。</text>
   </view>
 </view>
+<app-nav active="home" />

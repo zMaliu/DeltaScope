@@ -30,9 +30,18 @@ function request({ url, method = "GET", data = {}, header = {} }) {
           resolve(res.data)
           return
         }
+        if (res.statusCode === 401) {
+          wx.removeStorageSync(userKey)
+          wx.removeStorageSync(tokenKey)
+          app.globalData.loginUser = null
+          app.globalData.authToken = ""
+          wx.reLaunch({ url: "/pages/auth/login/index" })
+        }
         reject(res.data || { message: "请求失败" })
       },
-      fail: reject
+      fail: (error) => {
+        reject(error || { message: "网络异常" })
+      }
     })
   })
 }

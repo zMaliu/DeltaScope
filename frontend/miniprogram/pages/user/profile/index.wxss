@@ -1,33 +1,36 @@
 .page {
   min-height: 100vh;
   padding: 36rpx 30rpx;
-  background: linear-gradient(180deg, #eff3ff 0%, #f9fbff 40%, #f5f6fa 100%);
+  background: linear-gradient(180deg, #f6f2e8 0%, #f4f3e9 40%, #f5f2e9 100%);
 }
 
 .profile-card {
-  margin-top: 80rpx;
+  margin-top: 24rpx;
   border-radius: 28rpx;
 }
 
 .title {
   display: block;
-  font-size: 42rpx;
+  font-size: 32rpx;
   font-weight: 700;
-  color: #0d1b4c;
+  color: #2f6858;
 }
 
 .desc {
   display: block;
   margin-top: 14rpx;
   margin-bottom: 28rpx;
-  color: #667085;
+  color: var(--color-muted);
   font-size: 26rpx;
 }
 
 .input {
-  border: 2rpx solid #e5e7eb;
-  background: #f9fafb;
+  border: 2rpx solid #e3e8df;
+  background: #fffefa;
   border-radius: 16rpx;
-  padding: 24rpx;
+  padding: 0 22rpx;
+  height: 90rpx;
+  font-size: 27rpx;
   margin-bottom: 22rpx;
 }
+.field-label { display: block; margin: 24rpx 0 12rpx; color: var(--color-ink); font-size: 25rpx; font-weight: 600; }

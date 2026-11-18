@@ -6,9 +6,9 @@ from pydantic import BaseModel, Field, validator
 
 
 class QuestionCreateRequest(BaseModel):
-    title: str = Field(min_length=1)
-    content: str = Field(min_length=1)
-    image_urls: List[str] = Field(min_items=1)
+    title: str = Field(min_length=1, max_length=128)
+    content: str = Field(min_length=1, max_length=5000)
+    image_urls: List[str] = Field(min_items=1, max_items=9)
     max_score: Decimal = Field(gt=0)
     deadline: datetime
 
@@ -22,7 +22,7 @@ class QuestionCreateRequest(BaseModel):
 
 class AnswerSubmitRequest(BaseModel):
     question_id: int = Field(gt=0)
-    image_urls: List[str] = Field(min_items=1)
+    image_urls: List[str] = Field(min_items=1, max_items=9)
 
     @validator("image_urls")
     def validate_answer_urls(cls, value: List[str]) -> List[str]:
@@ -35,4 +35,4 @@ class AnswerSubmitRequest(BaseModel):
 class GradeSubmitRequest(BaseModel):
     submission_id: int = Field(gt=0)
     score: Decimal = Field(ge=0)
-    teacher_comment: str = Field(default="")
+    teacher_comment: str = Field(default="", max_length=500)

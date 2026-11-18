@@ -18,7 +18,9 @@ def _b64_decode(data: str) -> bytes:
 
 
 def create_token(payload: Dict, expires_in: Optional[int] = None) -> str:
-    ttl = expires_in or TOKEN_CONFIG["expires_in"]
+    ttl = TOKEN_CONFIG["expires_in"] if expires_in is None else int(expires_in)
+    if ttl <= 0:
+        raise ValueError("Token expiry must be positive")
     body = {**payload, "exp": int(time.time()) + int(ttl)}
     body_raw = json.dumps(body, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     body_b64 = _b64_encode(body_raw)
@@ -43,8 +45,11 @@ def verify_token(token: str) -> Optional[Dict]:
         return None
     try:
         payload = json.loads(_b64_decode(body_b64).decode("utf-8"))
-    except Exception:
+        if not isinstance(payload, dict):
+            return None
+        expires_at = int(payload.get("exp", 0))
+    except (ValueError, TypeError, UnicodeDecodeError, json.JSONDecodeError):
         return None
-    if int(payload.get("exp", 0)) < int(time.time()):
+    if expires_at <= int(time.time()):
         return None
     return payload

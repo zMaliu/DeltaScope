@@ -1,34 +1,29 @@
-<view class="page">
-  <view class="header">
-    <text class="greeting">你好，{{nickname}}</text>
-    <view class="header-actions">
-      <text class="rank-btn" bindtap="goRanking">🏆 排行榜</text>
-      <text class="profile-btn" bindtap="goProfile">👤 个人中心</text>
-    </view>
+<import src="../../../templates/feed.wxml" />
+<view class="page-shell with-nav home-page">
+  <view class="home-topbar">
+    <view class="brand-lockup"><image class="brand-logo" src="{{logoUrl}}" mode="aspectFit" /><view><text class="brand-name">观微元</text><text class="brand-caption">数学学习社区</text></view></view>
+    <view class="topbar-actions"><view class="streak-badge" bindtap="goRanking"><text class="streak-fire">✦</text><text>成长榜</text></view><view class="avatar-button" bindtap="goProfile">{{avatarText}}</view></view>
   </view>
-  
-  <view class="card task-card" wx:if="{{question}}">
-    <text class="task-title">{{question.title}}</text>
-    <text class="task-desc">满分: {{question.max_score}} | 截止: {{question.deadline}}</text>
-    
-    <scroll-view scroll-x="true" class="image-list" wx:if="{{question.image_urls && question.image_urls.length > 0}}">
-      <image
-        wx:for="{{question.image_urls}}"
-        wx:key="*this"
-        class="img"
-        src="{{app.globalData.baseUrl + item}}"
-        mode="aspectFill"
-        bindtap="previewQuestion"
-        data-index="{{index}}"
-      />
-    </scroll-view>
-
-    <button class="btn-primary" bindtap="goSubmit" disabled="{{status === 'submitted' || status === 'graded'}}">
-      {{status === 'submitted' ? '已交卷 (待批改)' : (status === 'graded' ? '已批改' : '立即交卷')}}
-    </button>
+  <view class="greeting-row"><view><text class="greeting">{{greeting}}，{{nickname}}</text><text class="greeting-sub">今天也留一点时间给好奇心</text></view><text class="greeting-mark">✦</text></view>
+  <view class="search-bar home-search" bindtap="goSearch"><view class="search-mark"></view><text class="search-placeholder">搜题目、知识点或学习笔记</text><view class="search-shortcut">搜一搜</view></view>
+  <view class="daily-card">
+    <view class="daily-top"><view class="daily-kicker"><text class="daily-spark">✦</text><text>本周思维挑战</text></view><text class="daily-status {{status === 'graded' ? 'done' : ''}}">{{statusText}}</text></view>
+    <block wx:if="{{question}}">
+      <text class="daily-title">{{question.title}}</text>
+      <text class="daily-desc">{{question.content}}</text>
+      <scroll-view scroll-x class="question-images" wx:if="{{question.image_urls.length}}"><image wx:for="{{question.display_image_urls}}" wx:key="*this" class="question-image" src="{{item}}" mode="aspectFill" bindtap="previewQuestion" data-index="{{index}}" /></scroll-view>
+      <view class="challenge-bottom"><view class="deadline"><text class="deadline-label">距离截止</text><text class="deadline-value">{{countdownText}}</text></view><button class="challenge-button" bindtap="goSubmit" disabled="{{status === 'submitted' || (expired && status !== 'graded')}}">{{status === 'graded' ? '查看批改 →' : status === 'submitted' ? '等待批改' : expired ? '已截止' : '开始挑战 →'}}</button></view>
+    </block>
+    <view wx:elif="{{loadError}}" class="daily-empty"><text class="daily-empty-title">暂时无法载入挑战</text><text class="daily-desc">{{loadError}}</text><text class="retry-link" bindtap="loadPage">重新加载 →</text></view>
+    <view wx:elif="{{!loading}}" class="daily-empty"><text class="daily-empty-title">下一道好题，正在准备中</text><text class="daily-desc">先去看看同学们最近在讨论什么。</text></view>
+    <view wx:else class="daily-skeleton"><view></view><view></view><view></view></view>
   </view>
-
-  <view class="empty-state" wx:if="{{!question}}">
-    <text>本周暂无题目，休息一下吧~</text>
-  </view>
+  <view class="progress-strip" bindtap="goLearning"><view class="progress-emblem">δ</view><view class="progress-copy"><text class="progress-title">每一次思考，都算数</text><text class="progress-sub">{{submittedCount}} 次作答 · {{feedbackCount}} 次批改反馈</text></view><text class="progress-arrow">›</text></view>
+  <view class="section-heading feed-heading"><view><text class="section-title">灵感广场</text><text class="section-hint">好问题，来自认真思考的人</text></view><text class="section-more" bindtap="goForum">全部分享 ›</text></view>
+  <scroll-view scroll-x class="feed-tabs"><text wx:for="{{filters}}" wx:key="value" class="feed-tab {{activeFilter === item.value ? 'active' : ''}}" bindtap="switchFilter" data-value="{{item.value}}">{{item.label}}</text></scroll-view>
+  <view wx:if="{{feedError}}" class="inline-error">{{feedError}}</view>
+  <view wx:if="{{loading && !feedColumns[0].length}}" class="loading-state">正在为你整理学习灵感…</view>
+  <template is="feed" data="{{columns: feedColumns}}" />
+  <view wx:if="{{!loading && !feedColumns[0].length && !feedColumns[1].length}}" class="empty-state"><text class="empty-orbit">∿</text><text class="empty-title">这里还很安静</text><text class="empty-copy">换个分类看看，或发布第一篇学习分享</text><text class="retry-link" bindtap="goCompose">写下我的想法 →</text></view>
+  <view class="feed-end" wx:if="{{!loading && (feedColumns[0].length || feedColumns[1].length)}}">好奇心会带你找到下一条</view>
 </view>

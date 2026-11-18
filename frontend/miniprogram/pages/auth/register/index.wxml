@@ -1,22 +1,14 @@
-<view class="page">
-  <view class="hero">
-    <text class="brand">创建账号</text>
-    <text class="subtitle">仅需手机号和密码，资料稍后补全</text>
-  </view>
+<view class="page register-page">
+  <view class="register-brand"><image class="register-logo" src="{{logoUrl}}" mode="aspectFit" /><view><text class="register-name">观微元</text><text class="register-wordmark">DELTASCOPE</text></view></view>
   <view class="card auth-card">
-    <view class="tabs">
-      <view class="tab {{role === 'student' ? 'active' : ''}}" bindtap="switchRole" data-role="student">学生注册</view>
-      <view class="tab {{role === 'teacher' ? 'active' : ''}}" bindtap="switchRole" data-role="teacher">老师注册</view>
-    </view>
-    
-    <input class="input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
-    <input class="input" password placeholder="请输入密码（6位以上）" value="{{password}}" bindinput="onPasswordInput" />
-    
-    <block wx:if="{{role === 'teacher'}}">
-      <input class="input auth-input" placeholder="请输入教研授权码" value="{{authCode}}" bindinput="onAuthCodeInput" />
-    </block>
-    
-    <button class="btn-primary" bindtap="handleRegister" loading="{{loading}}">注册</button>
-    <view class="switch-line" bindtap="goLogin">已有账号？去登录</view>
+    <text class="register-eyebrow">A NEW BEGINNING</text>
+    <text class="brand">开启探索</text>
+    <text class="subtitle">记录每一步思考，发现数学的更多可能。</text>
+    <view class="form-field"><text class="field-label">手机号</text><input class="input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" /></view>
+    <view class="form-field"><text class="field-label">设置密码</text><input class="input" password maxlength="128" placeholder="至少 8 个字符" value="{{password}}" bindinput="onPasswordInput" /></view>
+    <view class="account-note"><text class="note-dot"></text><text>新账号默认为学生，可在个人信息中认证为教师。</text></view>
+    <button class="btn-primary register-button" bindtap="handleRegister" loading="{{loading}}" disabled="{{loading}}">创建账号</button>
+    <view class="switch-line" bindtap="goLogin">已有账号？<text class="login-link">去登录 →</text></view>
   </view>
+  <text class="register-footer">观察 · 推导 · 见证成长</text>
 </view>

@@ -16,6 +16,14 @@ def grade_student_answer(payload: dict) -> dict:
     with transaction() as conn:
         with conn.cursor() as cursor:
             cursor.execute(
+                "SELECT score FROM submissions WHERE id = %s FOR UPDATE",
+                (request.submission_id,),
+            )
+            current = cursor.fetchone()
+            if not current:
+                raise ValueError("作答记录不存在")
+            previous_score = Decimal(current["score"] or 0)
+            cursor.execute(
                 """
                 UPDATE submissions
                 SET score = %s, teacher_comment = %s, status = 'graded', graded_at = NOW()
@@ -31,6 +39,6 @@ def grade_student_answer(payload: dict) -> dict:
                 SET total_score = COALESCE(total_score, 0) + %s
                 WHERE id = %s
                 """,
-                (request.score, target["student_id"]),
+                (request.score - previous_score, target["student_id"]),
             )
     return {"submission_id": request.submission_id, "score": str(request.score)}

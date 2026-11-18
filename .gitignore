@@ -38,7 +38,7 @@ backend/uploads/
 backend/.env
 backend/.pytest_cache/
 
-# Frontend (Miniprogram)
+# Frontend (WeChat Mini Program)
 frontend/miniprogram/node_modules/
 frontend/miniprogram/package-lock.json
 frontend/miniprogram/project.private.config.json

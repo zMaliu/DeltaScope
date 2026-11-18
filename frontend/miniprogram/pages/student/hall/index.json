@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "答题大厅"
+  "navigationBarTitleText": "观微元 · 发现",
+  "enablePullDownRefresh": true
 }

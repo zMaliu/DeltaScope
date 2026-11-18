@@ -39,27 +39,26 @@ def get_my_profile(user_id: int, role: str, phone: str = "") -> Dict:
 def update_my_profile(user_id: int, role: str, payload: Dict) -> Dict:
     if role == "admin":
         raise ValueError("管理员资料不支持修改")
-    
-    real_name = (payload.get("real_name") or "").strip()
-    college = (payload.get("college") or "").strip()
-    
+
+    updates = dict(payload)
+    real_name = (updates.get("real_name") or "").strip()
+    college = (updates.get("college") or "").strip()
+
     if not real_name:
         raise ValueError("真实姓名不能为空")
     if not college:
         raise ValueError("学院不能为空")
         
     if role == "teacher":
-        # 老师只需姓名和学院，我们可以自动用姓名填充昵称
-        payload["nickname"] = real_name
+        updates["nickname"] = real_name
     else:
         # 学生还必须填专业
         major = (payload.get("major") or "").strip()
         if not major:
             raise ValueError("专业不能为空")
-        # 如果学生没填昵称，也默认用真实姓名
-        nickname = (payload.get("nickname") or "").strip()
+        nickname = (updates.get("nickname") or "").strip()
         if not nickname:
-            payload["nickname"] = real_name
-            
-    update_user_profile(user_id, payload)
+            updates["nickname"] = real_name
+
+    update_user_profile(user_id, updates)
     return get_my_profile(user_id, role)

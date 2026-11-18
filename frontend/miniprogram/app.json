@@ -8,16 +8,39 @@
     "pages/student/hall/index",
     "pages/student/submit/index",
     "pages/student/ranking/index",
+    "pages/student/veritas/index",
+    "pages/student/visual/index",
+    "pages/student/forum/index",
+    "pages/student/graph/index",
+    "pages/student/resources/index",
+    "pages/student/learning/index",
     "pages/teacher/list/index",
     "pages/teacher/detail/index",
-    "pages/teacher/publish/index"
+    "pages/teacher/publish/index",
+    "pages/student/compose/index",
+    "pages/student/note/index"
   ],
   "window": {
-    "navigationBarTitleText": "观微元每周一题",
-    "navigationBarBackgroundColor": "#0d1b4c",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#f5f6fa"
+    "navigationBarTitleText": "观微元 DeltaScope",
+    "navigationBarBackgroundColor": "#f6f2e8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f2e9"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "tabBar": {
+    "custom": true,
+    "color": "#8b958c",
+    "selectedColor": "#397560",
+    "backgroundColor": "#fffdf7",
+    "list": [
+      { "pagePath": "pages/student/hall/index", "text": "发现" },
+      { "pagePath": "pages/student/learning/index", "text": "学习" },
+      { "pagePath": "pages/student/forum/index", "text": "社区" },
+      { "pagePath": "pages/user/info/index", "text": "我的" }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "app-nav": "/components/app-nav/index"
+  }
 }

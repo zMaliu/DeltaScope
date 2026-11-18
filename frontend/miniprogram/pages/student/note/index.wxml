@@ -1,0 +1,15 @@
+<view class="page-shell note-page">
+  <view wx:if="{{loading}}" class="loading-state">正在打开这段思考…</view>
+  <view wx:elif="{{loadError}}" class="error-card"><text>{{loadError}}</text><button class="quiet-button" bindtap="retry">重新加载</button></view>
+  <block wx:elif="{{detail}}">
+    <view class="article-channel"><text>{{channelLabel}}</text><text wx:if="{{kind === 'resource' && detail.status === 'planning'}}" class="article-status">资料筹备中</text></view>
+    <text class="article-title">{{detail.title}}</text>
+    <view class="article-author"><text class="author-avatar">{{detailAvatar}}</text><view><text class="author-name">{{detailAuthor}}</text><text class="article-date">{{dateText}}</text></view></view>
+    <view class="article-rule"></view>
+    <text class="article-content" user-select>{{kind === 'resource' ? detail.summary : detail.content}}</text>
+    <view wx:if="{{kind === 'resource'}}" class="article-notice">{{detail.status === 'planning' ? '本条资料正在整理中，目前展示资料介绍，正文和附件尚未开放。' : '当前展示资料说明，暂未提供可下载附件。'}}</view>
+    <view wx:if="{{!detail.author_id && kind === 'post'}}" class="article-notice">这是一篇用于说明社区内容形式的示例分享。</view>
+    <view class="article-end"><text>✦</text><text>把思考留下，让灵感继续</text></view>
+    <button wx:if="{{kind === 'post'}}" class="article-compose" bindtap="compose">我也想分享一个思路 →</button>
+  </block>
+</view>

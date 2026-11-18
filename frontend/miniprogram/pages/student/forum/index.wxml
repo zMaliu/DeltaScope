@@ -1,0 +1,13 @@
+<import src="../../../templates/feed.wxml" />
+<view class="page-shell with-nav community-page">
+  <view class="community-heading"><view><text class="community-title">一起，把问题想明白</text><text class="community-sub">分享思路，也分享走过的弯路</text></view><view class="compose-entry" bindtap="compose" role="button" aria-label="发布学习分享">＋</view></view>
+  <view class="search-bar"><view class="search-mark"></view><input class="search-input" placeholder="搜索课程、问题或经验" value="{{keyword}}" bindinput="onSearch" focus="{{searchFocus}}" confirm-type="search" /><text wx:if="{{keyword}}" class="search-clear" bindtap="clearSearch">×</text></view>
+  <scroll-view scroll-x class="filter-scroll"><text wx:for="{{filters}}" wx:key="value" class="filter-chip {{activeFilter === item.value ? 'active' : ''}}" bindtap="switchChannel" data-value="{{item.value}}">{{item.label}}</text></scroll-view>
+  <view class="community-banner" bindtap="compose" role="button"><view class="banner-copy"><text class="banner-title">每个好问题，都值得被看见</text><text class="banner-sub">记下你的第一个想法，也许就是新的起点</text></view><text class="banner-symbol">?</text></view>
+  <view class="section-heading"><text class="section-title">广场新鲜事</text><text class="section-more">{{count}} 篇分享</text></view>
+  <view wx:if="{{loading && !count}}" class="loading-state">正在加载社区内容…</view>
+  <view wx:if="{{loadError}}" class="error-card"><text>{{loadError}}</text><button class="quiet-button" bindtap="loadForum">重新加载</button></view>
+  <template is="feed" data="{{columns: feedColumns}}" />
+  <view wx:if="{{!loading && !loadError && !count}}" class="empty-state"><text class="empty-orbit">?</text><text class="empty-title">等待一段新的思考</text><text class="empty-copy">{{keyword ? '换个关键词，寻找更多灵感' : '发布问题、经验或今天的学习记录'}}</text><text class="retry-link" bindtap="compose">写一篇分享 →</text></view>
+  <view class="feed-end" wx:if="{{!loading && count}}">思考没有终点 · 下拉刷新看看</view>
+</view>

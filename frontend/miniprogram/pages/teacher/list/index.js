@@ -2,7 +2,7 @@ const { request } = require("../../../utils/api")
 
 Page({
   data: {
-    list: []
+    list: [], loading: true, loadError: ''
   },
   onShow() {
     const app = getApp()
@@ -15,12 +15,12 @@ Page({
     this.loadData()
   },
   async loadData() {
-    const res = await request({
-      url: "/api/teacher/submissions/pending"
-    })
-    this.setData({
-      list: res.data || []
-    })
+    this.setData({ loading: true, loadError: '' })
+    try {
+      const res = await request({ url: '/api/teacher/submissions/pending' })
+      this.setData({ list: res.data || [] })
+    } catch (error) { this.setData({ loadError: error.message || '答卷加载失败，请重试' }) }
+    finally { this.setData({ loading: false }) }
   },
   openDetail(e) {
     const id = e.currentTarget.dataset.id
@@ -34,7 +34,7 @@ Page({
     })
   },
   goProfile() {
-    wx.navigateTo({
+    wx.switchTab({
       url: "/pages/user/info/index"
     })
   }

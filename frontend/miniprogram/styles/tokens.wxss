@@ -1,0 +1,21 @@
+page {
+  --color-ink: #2e3e33;
+  --color-primary: #4b8067;
+  --color-primary-dark: #365d47;
+  --color-primary-soft: #e8efdf;
+  --color-accent: #827a98;
+  --color-accent-soft: #eeebf3;
+  --color-paper: #f6f4eb;
+  --color-canvas: #f6f4eb;
+  --color-surface: #fffdf7;
+  --color-muted: #697563;
+  --color-line: #e8e9de;
+  --color-gold: #bb9b62;
+  --color-gold-soft: #f2eadb;
+  --color-warning: #94794f;
+  --color-danger: #b46155;
+  --brand-gradient: linear-gradient(125deg, #527e62, #3d715c);
+  --hero-gradient: linear-gradient(135deg, #edf2e5, #dfe9d9);
+  --canvas-gradient: linear-gradient(180deg, #f6f4eb, #f5f4ec);
+  --shadow-card: 0 8rpx 30rpx rgba(69, 88, 61, .045);
+}

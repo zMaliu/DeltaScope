@@ -13,7 +13,7 @@
 
 ## 环境要求
 
-- **Python**: 3.9 或更高版本（后端依赖类型提示新特性）
+- **Python**: 3.9 或更高版本
 - **MySQL**: 8.0 或更高版本
 - **微信开发者工具**: 最新版
 
@@ -21,8 +21,8 @@
 
 ### 1. 数据库准备
 
-1. 打开本地 MySQL 数据库。
-2. 运行 `database/schema.sql` 脚本：
+1. 创建数据库及专用应用账号。部署环境不要使用 MySQL root 账号。
+2. 运行 `database/schema.sql`：
    ```sql
    CREATE DATABASE IF NOT EXISTS deltascope DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    USE deltascope;
@@ -31,37 +31,48 @@
 
 ### 2. 后端部署 (Flask)
 
-1. 进入后端目录：
+1. 从项目根目录创建虚拟环境并安装依赖：
 
    ```bash
-   cd backend
+   python3 -m venv .venv
+   . .venv/bin/activate
+   pip install -r backend/requirements.txt
    ```
-2. 安装依赖：
+2. 复制 `backend/.env.example` 为 `backend/.env`，配置数据库密码、管理员密码、教师授权码和随机 `TOKEN_SECRET`。配置文件不会自动加载，启动前导出变量：
 
    ```bash
-   pip install -r requirements.txt
+   set -a
+   . backend/.env
+   set +a
    ```
-3. 配置环境变量（可选，或直接修改 `backend/app/config.py`）：
-
-   - 修改 `config.py` 中的 `DB_CONFIG` 字典，填入本地的 MySQL 账号和密码。
-4. 启动后端服务：
+3. 启动开发服务器：
 
    ```bash
-   python main.py
+   python backend/main.py
    ```
 
-   后端服务默认将运行在 `http://127.0.0.1:5000`。
+   服务地址为 `http://127.0.0.1:5051`。开发服务器只用于本地调试。
 
-### 3. 前端部署 (微信小程序)
+### 3. 生产启动
+
+生产环境需设置 `APP_ENV=production` 并提供全部必需密钥；应用会在缺少配置时拒绝启动。使用 Waitress 等 WSGI 容器运行，生产入口为 `main:app`，工作目录为 `backend/`：
+
+```bash
+waitress-serve --listen=127.0.0.1:5051 main:app
+```
+
+公网部署时应由 HTTPS 反向代理转发至 WSGI 服务，上传目录需配置持久化存储，并限制其 Web 访问策略。
+
+### 4. 前端部署 (微信小程序)
 
 1. 打开 **微信开发者工具**。
 2. 选择 **导入项目**，目录选择到 `frontend/miniprogram` 文件夹。
 3. 在开发者工具中，如果提示 AppID，可填入您自己的 AppID，或点击“测试号”。
-4. 在开发者工具右上角点击 **详情 -> 本地设置**，勾选 **“不校验合法域名、web-view（业务域名）、TLS版本以及HTTPS证书”**。
+4. 本地联调时，在 **详情 -> 本地设置** 中关闭合法域名校验；线上环境必须配置 HTTPS 合法域名并重新开启校验。
 
 ## 测试与校验
 
 项目中包含了用于测试的脚本：
 
-- `python tests/test_db_connection.py`：测试数据库连接是否正常。
-- `python tests/test_register_api.py`：测试注册接口连通性。
+- `.venv/bin/python -m unittest discover -s tests -v`：运行单元和接口测试（含数据库连通检查）。
+- `.venv/bin/python tests/run_checks.py`：运行项目检查脚本。

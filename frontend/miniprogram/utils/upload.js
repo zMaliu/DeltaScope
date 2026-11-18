@@ -31,12 +31,16 @@ function chooseAndCompressImages(count = 9) {
 
 function uploadImage(filePath, uploadUrl) {
   return new Promise((resolve, reject) => {
+    const app = getApp()
+    const tokenKey = app.globalData.config.STORAGE_KEYS.AUTH_TOKEN
+    const token = app.globalData.authToken || wx.getStorageSync(tokenKey) || ""
     wx.uploadFile({
       url: uploadUrl,
       filePath,
       name: "file",
       header: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
       },
       success: (res) => {
         try {

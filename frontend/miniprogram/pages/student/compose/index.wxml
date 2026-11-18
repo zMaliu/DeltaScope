@@ -1,0 +1,7 @@
+<view class="page-shell compose-page">
+  <view class="compose-top"><text class="compose-heading">记录一次思考</text><text class="draft-state">{{draftRestored ? '草稿已恢复' : '离开时自动存为草稿'}}</text></view>
+  <view class="compose-paper"><input class="compose-title-input" maxlength="128" placeholder="给你的思考起个标题" value="{{title}}" bindinput="onTitleInput" /><textarea class="compose-content" maxlength="5000" placeholder="可以是一个还没想明白的问题，一次推导的新思路，或今天的学习收获……" value="{{content}}" bindinput="onContentInput" /><view class="compose-wordcount">{{content.length}} / 5000</view></view>
+  <view class="compose-settings"><text class="settings-label">发布到</text><view class="channel-options"><text wx:for="{{channels}}" wx:key="value" class="channel-option {{channel === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="selectChannel">{{item.label}}</text></view><view class="course-setting"><text>关联课程</text><input placeholder="选填，如数学分析" maxlength="64" value="{{course}}" bindinput="onCourseInput" /></view></view>
+  <view class="compose-tip"><text>✦</text><text>清晰的问题和完整的过程，能帮助大家更好地理解你。</text></view>
+  <view class="publish-footer"><button class="btn-primary publish-button" loading="{{publishing}}" disabled="{{publishing || !canPublish}}" bindtap="publish">发布分享 →</button></view>
+</view>

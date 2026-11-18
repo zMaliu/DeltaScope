@@ -1,0 +1,8 @@
+<view class="page-shell">
+  <view class="screen-head"><view><text class="screen-eyebrow">A PARTNER FOR THINKING</text><text class="screen-title">Veritas · 思考伙伴</text><text class="screen-copy">好的提示，留给你继续思考的空间。</text></view></view>
+  <view class="plan-illustration">✦<text>让每一步推导都有迹可循</text></view>
+  <view class="plan-notice"><text class="pill">筹备中 · 尚未开放问答</text><text class="plan-copy">未来，希望陪你拆解证明、发现逻辑缺口。现阶段可以在社区提出问题，或通过每周一题获得老师反馈。</text></view>
+  <view class="section-heading"><text class="section-title">我们正在准备</text></view>
+  <view class="catalog"><view class="catalog-row" wx:for="{{abilities}}" wx:key="title"><text class="catalog-index">0{{index + 1}}</text><view><text class="catalog-title">{{item.title}}</text><text class="catalog-copy">{{item.desc}}</text></view></view></view>
+  <button class="btn-primary plan-button" bindtap="goWeekly">去看看每周一题</button>
+</view>

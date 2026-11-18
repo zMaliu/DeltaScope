@@ -1,48 +1,12 @@
-<view class="page">
-  <view class="header-card">
-    <view class="avatar-wrap">
-      <image class="avatar" src="{{userInfo.avatar_url || '/assets/default-avatar.png'}}" mode="aspectFill"></image>
-    </view>
-    <view class="user-info">
-      <text class="name">{{userInfo.real_name || userInfo.nickname}}</text>
-      <text class="role-tag {{userInfo.role === 'teacher' ? 'teacher' : 'student'}}">{{userInfo.role === 'teacher' ? '教师' : '学生'}}</text>
-    </view>
-  </view>
-
-  <view class="info-list">
-    <view class="info-item">
-      <text class="label">手机号</text>
-      <text class="value">{{userInfo.phone}}</text>
-    </view>
-    <view class="info-item">
-      <text class="label">真实姓名</text>
-      <text class="value">{{userInfo.real_name || '未填写'}}</text>
-    </view>
-    <view class="info-item">
-      <text class="label">学院</text>
-      <text class="value">{{userInfo.college || '未填写'}}</text>
-    </view>
-    
-    <block wx:if="{{userInfo.role === 'student'}}">
-      <view class="info-item">
-        <text class="label">专业</text>
-        <text class="value">{{userInfo.major || '未填写'}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">学校</text>
-        <text class="value">{{userInfo.school || '未填写'}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">年级</text>
-        <text class="value">{{userInfo.grade || '未填写'}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">班级</text>
-        <text class="value">{{userInfo.class_name || '未填写'}}</text>
-      </view>
-    </block>
-  </view>
-
-  <button class="btn-edit" bindtap="goEditProfile">修改资料</button>
-  <button class="btn-logout" bindtap="handleLogout">退出登录</button>
+<view class="page-shell with-nav profile-page">
+  <view class="profile-heading"><text>我的</text><text class="profile-brand">DELTASCOPE</text></view>
+  <view class="profile-identity"><view class="profile-avatar"><image src="{{userInfo.avatar_url || logoUrl}}" mode="aspectFill" /></view><view class="identity-copy"><text class="identity-name">{{userInfo.nickname && userInfo.nickname !== '未设置昵称' ? userInfo.nickname : userInfo.real_name || '好奇的同学'}}</text><view class="identity-meta"><text class="identity-role">{{userInfo.role === 'teacher' ? '✓ 认证教师' : userInfo.role === 'admin' ? '管理员' : '观微元学员'}}</text><text wx:if="{{userInfo.school}}">{{userInfo.school}}</text></view></view><view wx:if="{{userInfo.role !== 'admin'}}" class="edit-profile" bindtap="goEditProfile" role="button">编辑</view></view>
+  <view class="profile-quote"><text class="quote-spark">✦</text><text>在这里，看见每一次思考的价值。</text></view>
+  <view wx:if="{{userInfo.role === 'student'}}" class="my-learning" bindtap="goLearning" role="button"><view class="my-learning-head"><text>我的学习档案</text><text>查看全部 ›</text></view><view class="profile-stats"><view wx:for="{{stats}}" wx:key="label"><text class="profile-stat-number">{{item.value}}</text><text class="profile-stat-label">{{item.label}}</text></view></view></view>
+  <view class="profile-menu"><view class="menu-row" bindtap="goHome" role="button"><view class="menu-icon">{{userInfo.role === 'teacher' ? '▤' : '∑'}}</view><view class="menu-copy"><text class="menu-title">{{userInfo.role === 'teacher' ? '教师工作台' : userInfo.role === 'admin' ? '权限管理' : '每周一题'}}</text><text class="menu-desc">{{userInfo.role === 'teacher' ? '发布挑战，批改答卷' : userInfo.role === 'admin' ? '管理用户与教师权限' : '用一道好题，打开新的思路'}}</text></view><text class="menu-arrow">›</text></view><view wx:if="{{userInfo.role === 'student'}}" class="menu-row" bindtap="goResources" role="button"><view class="menu-icon violet">▤</view><view class="menu-copy"><text class="menu-title">课程资料库</text><text class="menu-desc">让好资料触手可及</text></view><text class="menu-arrow">›</text></view><view class="menu-row" bindtap="toggleDetails" role="button"><view class="menu-icon sand">◎</view><view class="menu-copy"><text class="menu-title">个人信息</text><text class="menu-desc">姓名、学院与联系方式</text></view><text class="menu-arrow">{{detailsOpen ? '⌃' : '›'}}</text></view></view>
+  <view wx:if="{{detailsOpen}}" class="details-card"><view class="detail-row"><text>手机号</text><text>{{maskedPhone}}</text></view><view class="detail-row"><text>姓名</text><text>{{userInfo.real_name || '未填写'}}</text></view><view class="detail-row"><text>学院</text><text>{{userInfo.college || '未填写'}}</text></view><view wx:if="{{userInfo.role === 'student'}}" class="detail-row"><text>专业</text><text>{{userInfo.major || '未填写'}}</text></view><view wx:if="{{userInfo.role === 'student'}}" class="detail-row"><text>年级 / 班级</text><text>{{userInfo.grade || '未填写'}} / {{userInfo.class_name || '未填写'}}</text></view></view>
+  <view wx:if="{{userInfo.role === 'student'}}" class="cert-card" bindtap="certifyTeacher" role="button"><view class="cert-icon">✓</view><view class="menu-copy"><text class="cert-title">教师身份认证</text><text class="cert-desc">让专业的引导，陪伴更多思考</text></view><text class="cert-action">去认证 ›</text></view>
+  <view wx:if="{{userInfo.role === 'teacher'}}" class="certified-state">✓ 已完成教师身份认证</view>
+  <button class="logout-button" bindtap="handleLogout">退出登录</button><text class="profile-footer">观微元 · 观察 · 推导 · 见证成长</text>
 </view>
+<view wx:if="{{certOpen}}" class="sheet-mask" bindtap="closeCertification"><view class="cert-sheet" catchtap="stopPropagation"><view class="sheet-handle"></view><view class="sheet-heading"><text>教师身份认证</text><text class="sheet-close" bindtap="closeCertification">×</text></view><text class="sheet-copy">通过认证后，即可发布每周挑战、查看答卷并提供批改反馈。</text><input class="cert-input" placeholder="请输入教师认证码" password value="{{certCode}}" bindinput="onCertInput" maxlength="128" /><text wx:if="{{certError}}" class="cert-error">{{certError}}</text><button class="btn-primary" loading="{{certifying}}" disabled="{{certifying}}" bindtap="submitCertification">确认认证</button><text class="sheet-note">认证码由教研团队提供</text></view></view>

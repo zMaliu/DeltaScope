@@ -1,20 +1,20 @@
-<view class="page">
+<view class="page profile-page">
+  <view class="screen-head"><view><text class="screen-eyebrow">ABOUT YOU</text><text class="screen-title">{{isEdit ? '编辑资料' : '认识一下你'}}</text><text class="screen-copy">完善学习信息，让交流更有温度。</text></view></view>
   <view class="card profile-card">
-    <text class="title">完善个人资料</text>
-    <text class="desc">注册后请先补充以下信息</text>
+    <text class="title">学习身份</text>
+    <text class="desc">姓名、学院{{role === 'student' ? '和专业' : ''}}为必填，其余可稍后补充。</text>
     
-    <input class="input" placeholder="请输入真实姓名 (必填)" value="{{realName}}" bindinput="onRealNameInput" />
-    <input class="input" placeholder="请输入学院 (必填)" value="{{college}}" bindinput="onCollegeInput" />
+    <text class="field-label">真实姓名 *</text><input class="input" maxlength="50" placeholder="你的姓名" value="{{realName}}" bindinput="onRealNameInput" />
+    <text class="field-label">学院 *</text><input class="input" maxlength="100" placeholder="例如：数学与统计学院" value="{{college}}" bindinput="onCollegeInput" />
     
     <block wx:if="{{role === 'student'}}">
-      <input class="input" placeholder="请输入专业 (必填)" value="{{major}}" bindinput="onMajorInput" />
-      <input class="input" placeholder="请输入学校 (选填)" value="{{school}}" bindinput="onSchoolInput" />
-      <input class="input" placeholder="请输入年级, 如 2023级 (选填)" value="{{grade}}" bindinput="onGradeInput" />
-      <input class="input" placeholder="请输入班级 (选填)" value="{{className}}" bindinput="onClassNameInput" />
-      <input class="input" placeholder="请输入昵称 (选填, 默认使用姓名)" value="{{nickname}}" bindinput="onNicknameInput" />
-      <input class="input" placeholder="请输入头像URL (选填)" value="{{avatarUrl}}" bindinput="onAvatarInput" />
+      <text class="field-label">专业 *</text><input class="input" maxlength="100" placeholder="你的专业" value="{{major}}" bindinput="onMajorInput" />
+      <text class="field-label">学校</text><input class="input" maxlength="100" placeholder="你的学校（选填）" value="{{school}}" bindinput="onSchoolInput" />
+      <text class="field-label">年级</text><input class="input" maxlength="20" placeholder="例如：2026级" value="{{grade}}" bindinput="onGradeInput" />
+      <text class="field-label">班级</text><input class="input" maxlength="50" placeholder="你的班级（选填）" value="{{className}}" bindinput="onClassNameInput" />
+      <text class="field-label">昵称</text><input class="input" maxlength="50" placeholder="希望大家怎么称呼你" value="{{nickname}}" bindinput="onNicknameInput" />
     </block>
 
-    <button class="btn-primary" bindtap="saveProfile">保存并进入系统</button>
+    <button class="btn-primary" bindtap="saveProfile" loading="{{saving}}" disabled="{{saving}}">{{isEdit ? '保存资料' : '保存，开始探索'}}</button>
   </view>
 </view>

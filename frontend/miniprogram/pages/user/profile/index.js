@@ -10,7 +10,9 @@ Page({
     grade: "",
     className: "",
     realName: "",
-    role: "student"
+    role: "student",
+    saving: false,
+    isEdit: false
   },
   async onLoad(options) {
     const app = getApp()
@@ -20,7 +22,7 @@ Page({
       wx.reLaunch({ url: "/pages/auth/login/index" })
       return
     }
-    this.setData({ role: user.role })
+    this.setData({ role: user.role, isEdit: options.edit === '1' })
     try {
       const res = await request({ url: "/api/common/profile/me" })
       
@@ -62,6 +64,7 @@ Page({
   onRealNameInput(e) { this.setData({ realName: e.detail.value }) },
   
   async saveProfile() {
+    if (this.data.saving) return
     if (!this.data.realName || !this.data.college) {
       wx.showToast({ title: "真实姓名和学院为必填项", icon: "none" })
       return
@@ -70,6 +73,7 @@ Page({
       wx.showToast({ title: "学生必须填写专业", icon: "none" })
       return
     }
+    this.setData({ saving: true })
     try {
       const res = await request({
         url: "/api/common/profile/update",
@@ -107,6 +111,6 @@ Page({
       }, 1000)
     } catch (error) {
       wx.showToast({ title: error.message || "保存失败", icon: "none" })
-    }
+    } finally { this.setData({ saving: false }) }
   }
 })

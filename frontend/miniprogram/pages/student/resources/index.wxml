@@ -1,0 +1,11 @@
+<view class="page-shell library-page">
+  <view class="library-heading"><text class="library-title">把好资料，放在手边</text><text class="library-sub">课程笔记、题目解析与复习专题</text></view>
+  <view class="search-bar"><view class="search-mark"></view><input class="search-input" placeholder="搜索课程或资料名称" value="{{keyword}}" bindinput="onSearch" /><text wx:if="{{keyword}}" class="search-clear" bindtap="clearSearch">×</text></view>
+  <scroll-view scroll-x class="filter-scroll"><text class="filter-chip {{currentCategory === item.value ? 'active' : ''}}" wx:for="{{filters}}" wx:key="value" data-value="{{item.value}}" bindtap="switchFilter">{{item.label}}</text></scroll-view>
+  <view class="section-heading"><text class="section-title">资料目录</text><text class="section-more">共 {{count}} 项</text></view>
+  <view wx:if="{{loading}}" class="loading-state">正在整理资料…</view>
+  <view wx:elif="{{loadError}}" class="error-card"><text>{{loadError}}</text><button class="quiet-button" bindtap="retry">重试</button></view>
+  <view wx:else class="resource-list"><view class="resource-row" wx:for="{{visibleResources}}" wx:key="id" bindtap="openCard" data-id="{{item.id}}" role="button"><view class="resource-cover"><image src="{{item.cover}}" mode="aspectFill" /><text>∑</text></view><view class="resource-copy"><text class="resource-category">{{item.label}}</text><text class="resource-title">{{item.title}}</text><text class="resource-summary">{{item.summary}}</text><text class="resource-status">{{item.status === 'published' ? '查看资料说明' : '资料筹备中'}}</text></view><text class="resource-arrow">›</text></view></view>
+  <view class="empty-state" wx:if="{{!loading && !loadError && !count}}"><text class="empty-orbit">▤</text><text class="empty-title">没有找到相关资料</text><text class="empty-copy">换个关键词或分类试试</text></view>
+  <text class="library-foot" wx:if="{{count}}">资料筹备中的条目暂未提供正文或附件</text>
+</view>

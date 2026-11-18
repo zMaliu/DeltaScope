@@ -8,10 +8,10 @@
 .header-card {
   padding: 30rpx;
   text-align: center;
-  background: linear-gradient(135deg, #0d1b4c, #1a3680);
+  background: linear-gradient(135deg, #6ca58c, #438c78);
   border-radius: 24rpx;
   margin-bottom: 10rpx;
-  box-shadow: 0 8rpx 16rpx rgba(13, 27, 76, 0.2);
+  box-shadow: 0 8rpx 16rpx rgba(67, 140, 120, 0.18);
 }
 
 .header-title {
@@ -68,7 +68,7 @@
   display: flex;
   align-items: baseline;
   gap: 4rpx;
-  color: #0d1b4c;
+  color: #2f6858;
 }
 
 .score {

@@ -1,0 +1,7 @@
+<view class="page-shell">
+  <view class="screen-head"><view><text class="screen-eyebrow">VISUAL MATH</text><text class="screen-title">让数学变得可见</text><text class="screen-copy">有些抽象的道理，换一个角度就明白了。</text></view></view>
+  <image class="preview-art" src="/assets/covers/waves.png" mode="aspectFill" />
+  <view class="plan-notice"><text class="pill">实验室筹备中</text><text class="plan-copy">我们正在准备函数与几何的互动内容。上图为数学插画，当前尚未开放交互实验。</text></view>
+  <view class="section-heading"><text class="section-title">接下来，一起探索</text></view>
+  <view class="catalog"><view class="catalog-row" wx:for="{{labs}}" wx:key="name"><text class="catalog-index">0{{index + 1}}</text><view><text class="catalog-title">{{item.name}}</text><text class="catalog-copy">{{item.desc}}</text></view></view></view>
+</view>
